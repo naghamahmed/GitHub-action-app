@@ -1,6 +1,7 @@
 # .github/workflows/ci.yml
 name: CI
 
+
 on:
   pull_request:
   push:
@@ -37,6 +38,8 @@ jobs:
           pip install pytest pytest-cov
 
       - name: Run tests with coverage
+        env:
+            PYTHONPATH: ${{ github.workspace }}   # allow "from app.main import app"
         run: |
           pytest -q --maxfail=1 --disable-warnings \
                  --cov=app --cov-report=xml
